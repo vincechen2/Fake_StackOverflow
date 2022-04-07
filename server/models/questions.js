@@ -11,6 +11,7 @@ var QuestionSchema = new Schema({
     required: true,
   },
   tags: {
+    required: true,
     type: [Schema.Types.ObjectId],
     ref: "Tags",
   },

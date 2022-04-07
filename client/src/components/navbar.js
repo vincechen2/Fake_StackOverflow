@@ -18,69 +18,58 @@ export default class Navbar extends React.Component {
 
   doSearch() {
     let s = document.getElementById("search").value;
-    const x = [];
     // split word by white space
-    let strings = s.split(" ");
-    // push from the search value onto x
-    for (let i = 0; i < strings.length; i++) {
-      if (
-        strings[i].charAt(0) === "[" &&
-        strings[i].charAt(strings[i].length - 1) === "]"
-      ) {
-        x.push(strings[i].substring(1, strings[i].length - 1).toLowerCase());
+    let ss = s.split(" ");
+    // Strings contains only the text without brackets
+    // tags contains only the text in between brackets
+    let strings = [];
+    let tags = [];
+    ss.forEach((item, index) => {
+      if (item.charAt(0) === "[" && item.charAt(item.length - 1) === "]") {
+        tags.push(item.substring(1, item.length - 1).toLowerCase());
+      } else {
+        strings.push(item.toLowerCase());
       }
-    }
+    });
 
+    // compare tags in search to tags in data
+    // If there is a match push the id onto tags array else remove the tag from tags array
+    tags.forEach((item, index) => {
+      let x = false;
+      this.props.model.data.tags.forEach((item2, index2) => {
+        if (item === item2.name) {
+          tags.splice(index, 1, item2._id);
+          x = true;
+        }
+      });
+      if (!x) {
+        tags.splice(index, 1);
+      }
+    });
+
+    // add the questions with the same tag id as those stored in tags to an array
     const validQuestions = [];
-    const tidList = [];
-    // if the tag names in x match the tag names in model.tags then push the id to tidlist
-    if (x !== undefined && x.length !== 0) {
-      for (let i = 0; i < x.length; i++) {
-        for (let j = 0; j < this.props.model.data.tags.length; j++) {
-          if (this.props.model.data.tags[j].name.toLowerCase() === x[i]) {
-            tidList.push(this.props.model.data.tags[j].tid);
+    tags.forEach((item, index) => {
+      this.props.model.data.questions.forEach((item2, index2) => {
+        item2.tags.forEach((item3, index2) => {
+          if (item3 === item) {
+            validQuestions.push(item2);
           }
-        }
-      }
-      // if the tag ids in the question matches those in tidlist, push the question onto validQuestions
-      for (let i = 0; i < tidList.length; i++) {
-        for (let j = 0; j < this.props.model.data.questions.length; j++) {
-          for (
-            let k = 0;
-            k < this.props.model.data.questions[j].tags.length;
-            k++
-          ) {
-            if (tidList[i] === this.props.model.data.questions[j].tags[k]._id) {
-              validQuestions.push(this.props.model.data.questions[j]);
-            }
-          }
-        }
-      }
-    }
-    const words = [];
-    // words contains all the string in the search value that don't start and end with []
-    for (let i = 0; i < strings.length; i++) {
-      if (
-        strings[i].charAt(0) !== "[" &&
-        strings[i].charAt(strings[i].length - 1) !== "]"
-      ) {
-        words.push(strings[i].toLowerCase());
-      }
-    }
+        });
+      });
+    });
 
-    for (let i = 0; i < words.length; i++) {
-      for (let j = 0; j < this.props.model.data.questions.length; j++) {
-        let tempt = this.props.model.data.questions[j].title
-          .toLowerCase()
-          .split(" ");
-        let tempx = this.props.model.data.questions[j].text
-          .toLowerCase()
-          .split(" ");
-        if (tempt.includes(words[i]) || tempx.includes(words[i])) {
-          validQuestions.push(this.props.model.data.questions[j]);
+    // iterate through all the questions and if title or text contains any of the valid strings then include that question
+    this.props.model.data.questions.forEach((item2, index2) => {
+      strings.forEach((item, index) => {
+        let tempt = item2.title.toLowerCase().split(" ");
+        let tempx = item2.text.toLowerCase().split(" ");
+        if (tempt.includes(item) || tempx.includes(item)) {
+          validQuestions.push(item2);
         }
-      }
-    }
+      });
+    });
+
     const nodupes = validQuestions.filter(function (item, pos) {
       return validQuestions.indexOf(item) === pos;
     });

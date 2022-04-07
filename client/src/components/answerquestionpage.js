@@ -6,10 +6,11 @@ export default class AnswerQuestionPage extends React.Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
-    if (this.addAnswer() === -1) {
+  async handleClick() {
+    if ((await this.addAnswer()) === -1) {
       return;
     }
+
     this.props.answerPage();
   }
   async addAnswer() {
@@ -19,7 +20,6 @@ export default class AnswerQuestionPage extends React.Component {
     }
     let ansText = document.getElementById("aT").value.trim();
     let ansUser = document.getElementById("aU").value.trim();
-    let len1 = this.props.model.data.answers.length + 1;
 
     let error = false;
     if (ansText.length === 0) {

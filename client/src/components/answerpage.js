@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 export default class AnswerPage extends React.Component {
   constructor(props) {

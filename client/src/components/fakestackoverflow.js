@@ -30,8 +30,7 @@ export default class FakeStackOverflow extends React.Component {
     this.setSaveQuestion = this.setSaveQuestion.bind(this);
     this.setSaveTag = this.setSaveTag.bind(this);
     this.setSearchTagList = this.setSearchTagList.bind(this);
-    this.createModel = this.createModel.bind(this);
-    this.updateModel = this.updateModel.bind(this);
+
     this.setQuestionModel = this.setQuestionModel.bind(this);
     this.setTagModel = this.setTagModel.bind(this);
     this.setAnswerModel = this.setAnswerModel.bind(this);
@@ -74,17 +73,15 @@ export default class FakeStackOverflow extends React.Component {
     this.setState({ model: this.state.model });
   }
   setQuestionModel(q) {
-    this.state.model.data.questions.push(q);
-
+    this.state.model.data.questions.unshift(q);
     this.setState({ model: this.state.model });
   }
   setTagModel(t) {
     this.state.model.data.tags.push(t);
-
     this.setState({ model: this.state.model });
   }
 
-  async createModel() {
+  async componentDidMount() {
     const qm = await axios.get("http://localhost:8000/question");
     const am = await axios.get("http://localhost:8000/answer");
     const tm = await axios.get("http://localhost:8000/tag");
@@ -97,24 +94,12 @@ export default class FakeStackOverflow extends React.Component {
       },
     };
 
-    return m;
-  }
-
-  async updateModel() {
-    this.setState({ loading: true });
-    this.setState({ model: undefined });
-    const m = await this.createModel();
     this.setState({ model: m });
-    console.log(this.state.model);
-    if (this.state.model != undefined) {
+    if (this.state.model !== undefined) {
       this.setState({ loading: false });
     } else {
       this.setState({ loading: true });
     }
-  }
-
-  async componentDidMount() {
-    await this.updateModel();
   }
 
   render() {
@@ -181,7 +166,6 @@ export default class FakeStackOverflow extends React.Component {
               ></Navbar>
               <AskQuestionPage
                 setTagModel={this.setTagModel}
-                updateModel={this.updateModel}
                 model={this.state.model}
                 setQuestionModel={this.setQuestionModel}
                 questionPage={this.questionPage}
@@ -225,7 +209,6 @@ export default class FakeStackOverflow extends React.Component {
               <AnswerQuestionPage
                 setQuestionModel={this.setQuestionModel}
                 setAnswerModel={this.setAnswerModel}
-                updateModel={this.updateModel}
                 model={this.state.model}
                 saveQuestion={this.state.saveQuestion}
                 answerPage={this.answerPage}

@@ -11,6 +11,7 @@ const cors = a();
 var Tag = require("./models/tags");
 var Answer = require("./models/answers");
 var Question = require("./models/questions");
+
 const server = app.listen(8000, () => {
   console.log("Server running");
 });
@@ -37,11 +38,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/question", (req, res) => {
-  Question.find().then((result) => {
-    JSON.stringify(result);
+  Question.find()
+    .sort({ ask_date_time: -1 })
+    .then((result) => {
+      JSON.stringify(result);
 
-    res.send(result);
-  });
+      res.send(result);
+    });
 });
 app.get("/answer", (req, res) => {
   Answer.find().then((result) => {
@@ -67,8 +70,6 @@ app.put("/incermentView", (req, res) => {
 
 app.put("/addAnswerToQuestion", (req, res) => {
   let r = req.body;
-  console.log(r._id);
-  console.log(r.answers[r.answers.length - 1]);
   Question.findOne({ _id: r._id }).then((result) => {
     result.answers.push(r.answers[r.answers.length - 1]);
     result.save();

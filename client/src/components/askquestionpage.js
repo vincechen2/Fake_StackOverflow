@@ -7,8 +7,8 @@ export default class AskQuestionPage extends React.Component {
     this.addQuestion = this.addQuestion.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
-    if (this.addQuestion() === -1) {
+  async handleClick() {
+    if ((await this.addQuestion()) === -1) {
       return;
     }
     this.props.questionPage();
@@ -104,23 +104,6 @@ export default class AskQuestionPage extends React.Component {
       });
     });
 
-    const dateobj = new Date();
-    let day = dateobj.getDate();
-    let year = dateobj.getFullYear();
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
     const newQ = {
       title: qtitle,
       text: qText,
