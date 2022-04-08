@@ -68,8 +68,12 @@ export default class AskQuestionPage extends React.Component {
 
     // split tag list by spaces
     let tlist = qts.split(" ");
+
     // filter out duplicates
-    tlist = tlist.filter((item, index) => tlist.indexOf(item) === index);
+    tlist = tlist.map((item) => item.toLowerCase());
+    tlist = tlist.filter(function (item, pos) {
+      return tlist.indexOf(item) === pos;
+    });
 
     // check if tag already exists in model
     for (let i = 0; i < tlist.length; i++) {
@@ -96,9 +100,10 @@ export default class AskQuestionPage extends React.Component {
       }
     }
 
+    // Convert tag name to corresponding id
     tlist.forEach((item, index) => {
       this.props.model.data.tags.forEach((item2, index2) => {
-        if (item === item2.name) {
+        if (item === item2.name.toLowerCase()) {
           tlist[index] = item2._id;
         }
       });

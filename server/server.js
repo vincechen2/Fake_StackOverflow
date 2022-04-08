@@ -71,7 +71,7 @@ app.put("/incermentView", (req, res) => {
 app.put("/addAnswerToQuestion", (req, res) => {
   let r = req.body;
   Question.findOne({ _id: r._id }).then((result) => {
-    result.answers.push(r.answers[r.answers.length - 1]);
+    result.answers.unshift(r.answers[0]);
     result.save();
   });
 });
