@@ -22,7 +22,7 @@ export default class AnswerQuestionPage extends React.Component {
     let ansUser = document.getElementById("aU").value.trim();
 
     let error = false;
-    console.log(error);
+
     if (ansText.length === 0) {
       let msg = document.createElement("p");
       msg.className = "errormsgs";
@@ -46,7 +46,6 @@ export default class AnswerQuestionPage extends React.Component {
       error = true;
     }
     if (error) {
-      console.log(-1);
       return -1;
     }
 
@@ -59,13 +58,12 @@ export default class AnswerQuestionPage extends React.Component {
     let id = await axios.post("http://localhost:8000/addAnswer", newA);
 
     this.props.saveQuestion.answers.unshift(id.data._id);
-    console.log(this.props.saveQuestion);
-    console.log(this.props.model.data);
+
     axios.put(
       "http://localhost:8000/addAnswerToQuestion",
       this.props.saveQuestion
     );
-    console.log(id.data);
+
     this.props.setAnswerModel(id.data);
   }
   render() {
