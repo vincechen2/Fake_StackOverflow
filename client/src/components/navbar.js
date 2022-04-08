@@ -62,9 +62,10 @@ export default class Navbar extends React.Component {
     // iterate through all the questions and if title or text contains any of the valid strings then include that question
     this.props.model.data.questions.forEach((item2, index2) => {
       strings.forEach((item, index) => {
-        let tempt = item2.title.toLowerCase().split(" ");
-        let tempx = item2.text.toLowerCase().split(" ");
-        if (tempt.includes(item) || tempx.includes(item)) {
+        if (
+          item2.title.toLowerCase().includes(item) ||
+          item2.text.toLowerCase().includes(item)
+        ) {
           validQuestions.push(item2);
         }
       });
