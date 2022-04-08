@@ -37,6 +37,13 @@ export default class AnswerQuestionPage extends React.Component {
       errcon.appendChild(msg);
       error = true;
     }
+    if (ansUser.length === 0) {
+      let msg = document.createElement("p");
+      msg.className = "errormsgs";
+      msg.innerHTML = "User can not be empty";
+      errcon.appendChild(msg);
+      error = true;
+    }
     if (error) {
       return -1;
     }
