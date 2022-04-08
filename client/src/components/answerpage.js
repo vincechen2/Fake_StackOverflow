@@ -25,7 +25,7 @@ export default class AnswerPage extends React.Component {
           askQuestion={this.props.askQuestion}
         />
         <AnswerPageQuestion saveQuestion={this.props.saveQuestion} />
-        {answers.map((answer, index, arr) => {
+        {answers.map((answer) => {
           return (
             <AnswerContent
               key={answer._id}
@@ -46,11 +46,6 @@ export default class AnswerPage extends React.Component {
 }
 
 class AnsHead extends React.Component {
-  componentDidMount() {
-    // this.props.saveQuestion.views += 1;
-    // axios.put("http://localhost:8000/incermentView", this.props.saveQuestion);
-  }
-
   render() {
     return (
       <div>
