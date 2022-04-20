@@ -1,9 +1,5 @@
-# MERN Boilerplate
+# MERN Stack
 MongoDB Express.js React.js Node.js
-
-A Full MERN Stack Boilerplate for Web Apps. Includes a local authentication system using passport. User is given a simple profile with Full Name and Profile Picture. User is also able to reset password and username case.
-
-NEW: For those of you who wish to separate the client and server into separate projects, I have created two repos that do just that! Check out [MERN Client](https://github.com/djizco/mern-client) and [MERN Server](https://github.com/djizco/mern-server).
 
 ## Requirements
 
@@ -31,32 +27,18 @@ brew services start mongodb-community
 #### for Development
 
 Start the client
-```bash
-npm run dev
+```
+In client folder run
+npm start
 ```
 
 Start the server
-```bash
-npm start
+```
+In server foldre run
+node server.js
 ```
 
-#### for Production
 
-```bash
-npm run build
-npm start
-```
-
-#### Other Commands
-
-```bash
-npm test
-npm run lint
-npm run lint:fix
-npm run test:verbose
-npm run test:watch-client
-npm run test:watch-server
-```
 
 ## Setup Instructions
 
@@ -76,57 +58,11 @@ This is also a good time to go through the included libraries to add or remove f
 After this you can commit the files into a new repository and push up to your github.
 You can now start updating files in your client to begin working on your own project!
 
-## Features
-
-* Webpack conveniently bundles your code for you.
-* Babel lets you use ES6/7 features.
-* CSS pre-processor setup for LESS and SASS lets you keep your styles clean and organized.
-* ESLint helps you maintain a high level of code quality.
-* Jest and Enzyme give you a robust testing framework to make sure your code works.
-
-## Code Structure
-
-```
-- client
-  - api
-  - assets
-    - images
-    - icons
-  - components
-    - atoms
-    - molecules
-    - organisms
-    - templates
-    - pages
-    - environment
-  - hooks
-  - store
-    - actions
-    - reducers
-    - thunks
-    - tests
-  - styles
-  - utils
-- server
-  - config
-  - database
-  - routes
-- scripts
-```
-
-Component Heirarchy:
-
-Environment > Pages > Templates > Organisms > Molecules > Atoms
-
-This is based on atomic design. Learn more about [atomic design](http://bradfrost.com/blog/post/atomic-web-design/).
-
 ## Technologies
 
 [React](https://facebook.github.io/react/) - View Library
 
-[Redux](http://redux.js.org/) - State Manager
-
-[Webpack](https://webpack.github.io/) - Module Bundler
+[Axios](https://github.com/axios/axios) - HTTP requests
 
 [Express](http://expressjs.com/) - Node Application Framework
 
@@ -134,24 +70,3 @@ This is based on atomic design. Learn more about [atomic design](http://bradfros
 
 [Mongoose](http://mongoosejs.com/) - MongoDB Framework
 
-[Passport](http://www.passportjs.org/) - Authentication Framework
-
-[React Notifications Component](https://teodosii.github.io/react-notifications-component/) - Notification System
-
-[Bulma](http://bulma.io/) - CSS Framework
-
-[React Bulma Companion](https://github.com/djizco/react-bulma-companion) - Bulma Component Library
-
-[FontAwesome](http://fontawesome.io/) - Icons
-
-[Ramda](http://ramdajs.com/) - Functional Library
-
-[date-fns](https://date-fns.org/) - Date Functions Library
-
-[SuperAgent](https://github.com/visionmedia/superagent) - HTTP Request Library
-
-[ESLint](http://eslint.org/) - Code Linter
-
-[Jest](https://jestjs.io/) - Testing Framework
-
-[Enzyme](https://airbnb.io/enzyme/) - React View Testing
