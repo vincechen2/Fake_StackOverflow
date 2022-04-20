@@ -94,12 +94,13 @@ export default class FakeStackOverflow extends React.Component {
       },
     };
 
-    this.setState({ model: m });
-    if (this.state.model !== undefined) {
-      this.setState({ loading: false });
-    } else {
-      this.setState({ loading: true });
-    }
+    this.setState({ model: m }, () => {
+      if (this.state.model !== undefined) {
+        this.setState({ loading: false });
+      } else {
+        this.setState({ loading: true });
+      }
+    });
   }
 
   render() {
@@ -292,6 +293,6 @@ export default class FakeStackOverflow extends React.Component {
       }
     }
 
-    return null;
+    return <div>Loading....</div>;
   }
 }
